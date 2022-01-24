@@ -1,2 +1,2 @@
 # SpringBootJPAFetch
-Spring Boot Data JPA - Fetch API (Pure JavaScript)
+Spring Boot Data JPA - CRUD using Fetch API (Pure JavaScript)
