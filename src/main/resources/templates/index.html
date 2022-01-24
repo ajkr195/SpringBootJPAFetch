@@ -33,14 +33,24 @@
 				</div>
 
 				<div id="getResult"></div>
+				
+			</div>
+		</div>
+		
+		<div class="card mt-3">
+			<div class="card-header">Fetch - GET Request</div>
+			<div class="card-body">
+				<button class="btn btn-sm btn-success" onclick="drawTableFromData()">Show All Users In HTML Table From JSON Array</button>
+				<button class="btn btn-sm btn-warning ml-2" onclick="clearTableArea()">Clear</button>
+				<div id="showData"></div>
 			</div>
 		</div>
 
 		<div class="card mt-3">
 			<div class="card-header">Fetch - GET Request</div>
 			<div class="card-body">
-					<button class="btn btn-sm btn-success" onclick="getDataByActive()">Get All Active Users</button>
-					<button class="btn btn-sm btn-warning ml-2" onclick="clearGetActiveOutput()">Clear</button>
+				<button class="btn btn-sm btn-success" onclick="getDataByActive()">Get All Active Users</button>
+				<button class="btn btn-sm btn-warning ml-2" onclick="clearGetActiveOutput()">Clear</button>
 				<div id="getActiveResult"></div>
 			</div>
 		</div>
