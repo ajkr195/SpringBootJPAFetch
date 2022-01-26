@@ -9,7 +9,7 @@
 		<version>2.6.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
+	<groupId>com.springboot</groupId>
 	<artifactId>spring-boot-jpa-fetchAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-jpa-fetchAPI</name>
