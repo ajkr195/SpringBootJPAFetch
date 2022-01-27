@@ -92,7 +92,7 @@ async function drawTableFromData() {
 		var divShowData = document.getElementById('showData');
 		divShowData.innerHTML = "";
 		divShowData.appendChild(table);
-		
+
 	} catch (err) {
 		resultElement.innerHTML = htmlizeResponse(err.message);
 	}
@@ -328,15 +328,15 @@ async function deleteDataById() {
 	try {
 		const res = await fetch(`${baseURL}/appUsers/${id}`, { method: "delete" });
 
-		const data = await res.json();
+		(res.status == 204) ? alert("Delete Successful !") : alert("Delete Failed !" + " ErrorCode: " + res.status);
 
-		alert(data);
 
 		const result = {
 			status: res.status + "-" + res.statusText,
 			headers: { "Content-Type": res.headers.get("Content-Type") },
-			data: data,
 		};
+
+
 
 		resultElement.innerHTML = htmlizeResponse(result);
 	} catch (err) {
