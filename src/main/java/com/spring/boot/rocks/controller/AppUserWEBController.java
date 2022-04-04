@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class AppUserWEBController {
-	
+
 	@GetMapping("/")
 	public String homePage() {
 		return "index";
+	}
+
+	@GetMapping("/index2")
+	public String somePage() {
+		return "index2";
 	}
 
 }

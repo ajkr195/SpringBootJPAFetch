@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.boot.rocks.exception.ResourceNotFoundException;
 import com.spring.boot.rocks.model.AppUser;
 import com.spring.boot.rocks.repository.AppUserRepository;
 
-@CrossOrigin(origins = "http://localhost:8080")
+import lombok.extern.slf4j.Slf4j;
+
+@CrossOrigin(origins = "http://localhost:8000")
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class AppUserRESTController {
 
 	@Autowired
@@ -33,16 +37,17 @@ public class AppUserRESTController {
 	public List<AppUser> getList() {
 		return appUserRepository.findAll();
 	}
-	
+
 	@GetMapping("/getuserlist")
 	public ResponseEntity<List<AppUser>> getEntityList() {
 		try {
 			List<AppUser> appUsers = new ArrayList<AppUser>();
-				appUserRepository.findAll().forEach(appUsers::add);
+			appUserRepository.findAll().forEach(appUsers::add);
 			if (appUsers.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			} else {
-			}return new ResponseEntity<>(appUsers, HttpStatus.OK);
+			}
+			return new ResponseEntity<>(appUsers, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -79,6 +84,13 @@ public class AppUserRESTController {
 		}
 	}
 
+	@GetMapping("/getappUserById/{id}")
+	public ResponseEntity<AppUser> getEmployeeById(@PathVariable("id") long id) throws ResourceNotFoundException {
+		AppUser employee = appUserRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
+		return ResponseEntity.ok().body(employee);
+	}
+
 	@PostMapping("/appUsers")
 	public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
 		try {
@@ -104,12 +116,12 @@ public class AppUserRESTController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@GetMapping("/appUsers/active")
 	public ResponseEntity<List<AppUser>> findByActive() {
 		try {
 			List<AppUser> appUsers = appUserRepository.findByActive(true);
-			
+
 			if (appUsers.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
@@ -122,7 +134,8 @@ public class AppUserRESTController {
 	@DeleteMapping("/appUsers/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
 		try {
-			appUserRepository.deleteById(id);
+			appUserRepository.deleteById(Long.valueOf(id));
+			log.info("User with id {} got Delete successfully", id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
